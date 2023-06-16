@@ -27,7 +27,7 @@ public class Info {
     @GetMapping("/random")
     public ResponseEntity random(){
         Boolean random = new Random().nextBoolean();
-        if (random){
+        if (random){// if (Random().nextBoolean()){dskqfgvlabv}
             return ResponseEntity.ok("200 OK");
 //            return ResponseEntity.status(200).body("200 OK");
         }

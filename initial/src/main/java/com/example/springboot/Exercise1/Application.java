@@ -1,11 +1,8 @@
-package com.example.springboot;
-
-import java.util.Arrays;
+package com.example.springboot.Exercise1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 public class Application {

@@ -23,7 +23,7 @@ public class HelloController {
 
 	@GetMapping("/greeting")
 	public ResponseEntity<String> greating(){
-		if (new Date().getHours() > 9) {
+		if (new Date().getHours() > 12) {
 //			return ResponseEntity.status(400).body("It's not morning");
 			return ResponseEntity.badRequest().body("It's not morning");
 		}
