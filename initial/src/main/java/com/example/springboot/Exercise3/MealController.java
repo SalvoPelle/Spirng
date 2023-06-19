@@ -1,4 +1,4 @@
-package com.example.springboot.Exercise2;
+package com.example.springboot.Exercise3;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -6,100 +6,99 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping("/esercizio2")
+@RequestMapping("/esercizio3")
 public class MealController {
-    List<Meal> pastiDelloChef = Arrays.asList(
-            new Meal("Pizza", "pasta per pizza, salsa di pomodoro, mozzarella", 5.99),
-            new Meal("Pasta alla Carbonara", "Spaghetti, uova, guanciale, pecorino romano, pepe nero", 12.99),
-            new Meal("Fiorentina", "bistecca di vitello alla griglia cotta al sangue", 39.99)
-    );
-
-    // Exercise 1: Create a GetMapping that returns a list of meals
-    //
-    //1 - Annotate a new class with the @RestController annotation. 2 - Create a new endpoint "/meals" using the @GetMapping annotation.
-    // 3 - In the method, return a list of Meal objects.
-    //
+    private List<Meal> pastiDelloChef = new ArrayList<>();
     @GetMapping("/pasti")
     public List<Meal> getPastiDelloChef(){
         return pastiDelloChef;
     }
 
-    //Exercise 2: Create a GetMapping that returns a meal by name
+    //Exercise 1: Create a PutMapping to add a new meal
     //
-    //1 - Annotate a new class with the @RestController annotation. 2 - Create a new endpoint "/meal/{name}" using the @GetMapping annotation.
-    // 3 - In the method, add a query parameter "name" using the @PathVariable annotation. 4 - Return a Meal object with the corresponding name.
+    //1 - Create a new endpoint "/meal" using the @PostMapping annotation.
+    // 3 - In the method, add a RequestBody for the new Meal object. 4 - Add the new meal to the list of meals.
 
-    @GetMapping("/pasti-per-nome/{name}")
-    public ResponseEntity<?> getPastiDelloChefNome(@PathVariable("name") String name){
-
-//                return ResponseEntity.ok(pastiDelloChef.stream().filter(meal -> meal.getName().contains(name)).findFirst().orElse(null));
-        Meal m = null;
-        for (Meal s : pastiDelloChef){
-            if (s.getName().contains(name)){
-                m = s;
-            }
-        }
-        
-        if (m == null){
-            return ResponseEntity.badRequest().body("lista vuota");
-        }else {
-            return ResponseEntity.ok(m);
-        }
+    @PutMapping("/aggiungi-pasto")
+    public ResponseEntity<String> putMeal(@RequestBody Meal meal){
+        this.pastiDelloChef.add(meal);
+        return ResponseEntity.ok("Pasto inserito");
     }
 
-    //Exercise 3: Create a GetMapping that returns a meal by any word of description
+    //Exercise 2: Create a PostMapping to update a meal by name
     //
-    //1 - Annotate a new class with the @RestController annotation. 2 - Create a new endpoint "/meal/description-match/{phrase}" using the @GetMapping annotation.
-    //3 - In the method, add a query parameter "description" using the @PathVariable annotation. 4 - Return a Meal object with the corresponding description.
-
-    @GetMapping("/meal/description-match/{phrase}")
-    public ResponseEntity<?> description(@PathVariable("phrase") String phrase){
-
-//        return ResponseEntity.ok(pastiDelloChef.stream().filter(meal -> meal.getDescription().contains(phrase)).findFirst().orElse(null));
-
-        Meal m = null;
+    //1 - Create a new endpoint "/meal/{name}" using the @PutMapping annotation. 2 - In the method, add a PathVariable for the name and a RequestBody for the updated Meal object.
+    // 3 - Update the meal with the corresponding name using the information from the RequestBody.
+    @PostMapping("/modifica-pasto/{name}")
+    public ResponseEntity<?> updateMeal(@PathVariable("name") String name,
+            @RequestBody Meal meal){
+//        this.pastiDelloChef.removeIf(m -> m.getName().equals(meal.getName()));
+//        this.pastiDelloChef.add(meal);
         for (Meal s : pastiDelloChef){
-            if (s.getDescription().contains(phrase)){
-                m = s;
+            if (s.getName().equals(name)){
+                pastiDelloChef.remove(s);
+                pastiDelloChef.add(meal);
             }
         }
 
-        if (m == null){
-            return ResponseEntity.badRequest().body("lista vuota");
-        }else {
-            return ResponseEntity.ok(m);
-        }
-
+        return ResponseEntity.ok("Pasto aggiornato");
     }
 
 
-//Exercise 4: Create a GetMapping that returns a meal by price range
-//
-//        1 - Annotate a new class with the @RestController annotation. 2 - Create a new endpoint "/meal/price" using the @GetMapping annotation.
-//        3 - In the method, add two query parameters "min" and "max" using the @RequestParam annotation. 4 - Return a list of Meal objects with prices within the specified range.
+    //Exercise 3: Create a DeleteMapping to delete a meal by name
+    //
+    //1 - Create a new endpoint "/meal/{name}" using the @DeleteMapping annotation. 2 - In the method, add a PathVariable for the name.
+    // 3 - Delete the meal with the corresponding name.
 
-    @GetMapping("meal/price-range/")
-    public ResponseEntity<?> getMaxAndMinPrice(@RequestParam("min") Double min,
-                                               @RequestParam("max") Double max){
-
-        List<Meal> m = new ArrayList<>();
-
+    @DeleteMapping("/cancella-pasto/")
+    public ResponseEntity<?> deleteMeal(@RequestParam("nome") String name){
+//        this.pastiDelloChef.removeIf(m -> m.getName().equals(meal.getName()));
+//        this.pastiDelloChef.add(meal);
         for (Meal s : pastiDelloChef){
-            if (s.getPrice()>= min && s.getPrice() <= max){
-                m.add(s);
+            if (s.getName().equals(name)){
+                pastiDelloChef.remove(s);
             }
         }
 
-        if (m == null){
-            return ResponseEntity.badRequest().body("lista vuota");
-        }else {
-            return ResponseEntity.ok(m);
-        }
-
+        return ResponseEntity.ok("Pasto cancellato");
     }
 
+    //Exercise 4: Create a DeleteMapping to delete all meals above a certain price
+    //
+    //1 - Create a new endpoint "/meal/price/{price}" using the @DeleteMapping annotation. 2 - In the method, add a PathVariable for the price.
+    // 3 - Delete all meals with a price above the price from the PathVariable.
+
+    @DeleteMapping("/cancella-pasto-costoso/")
+    public ResponseEntity<?> deleteMealPerPrice(@RequestParam("price") double price){
+//        this.pastiDelloChef.removeIf(m -> m.getName().equals(meal.getName()));
+//        this.pastiDelloChef.add(meal);
+        for (Meal s : pastiDelloChef){
+            if (s.getPrice()> price){
+                pastiDelloChef.remove(s);
+            }
+        }
+
+        return ResponseEntity.ok("Pasto cancellato");
+    }
+
+    //Exercise 5: Create a PutMapping to update the price of a meal by name
+    //
+    //1 - Create a new endpoint "/meal/{name}/price" using the @PutMapping annotation. 2 - In the method, add a PathVariable for the name and a RequestBody for the updated price.
+    // 3 - Update the price of the meal with the corresponding name using the information from the RequestBody.
+    @PostMapping("/meal/{name}/price")
+    public ResponseEntity<?> updateByPrice(@PathVariable("name") String name, @RequestBody Meal meal){
+
+        for (Meal s : pastiDelloChef) {
+            if (s.getName().equals(name) && s.getDescription().equals(meal.getDescription()) && s.getPrice() != meal.getPrice()){
+                pastiDelloChef.remove(s);
+                pastiDelloChef.add(meal);
+            }
+
+        }
+
+        return ResponseEntity.ok("Prezzo aggiornato");
+    }
 }

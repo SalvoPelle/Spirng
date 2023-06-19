@@ -1,4 +1,4 @@
-package com.example.springboot.Exercise3;
+package com.example.springboot.Exsercise5.models;
 
 public class Meal {
     private String name;
