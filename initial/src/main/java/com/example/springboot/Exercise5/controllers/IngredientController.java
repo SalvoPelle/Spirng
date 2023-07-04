@@ -1,7 +1,7 @@
-package com.example.springboot.Exsercise5.controllers;
+package com.example.springboot.Exercise5.controllers;
 
-import com.example.springboot.Exsercise5.entity.Ingredient;
-import com.example.springboot.Exsercise5.services.IngredientService;
+import com.example.springboot.Exercise5.entity.Ingredient;
+import com.example.springboot.Exercise5.services.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,7 @@ public class IngredientController {
         return ResponseEntity.ok().body(iService.getIngredient(id));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/modify-user/{id}")
     public ResponseEntity<?> updateIngredient(@RequestBody Ingredient i, @PathVariable("id") Long id){
         iService.updateIngredient(i);
         return ResponseEntity.ok().build();

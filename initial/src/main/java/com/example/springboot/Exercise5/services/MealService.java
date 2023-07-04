@@ -1,8 +1,8 @@
-package com.example.springboot.Exsercise5.services;
+package com.example.springboot.Exercise5.services;
 
 
-import com.example.springboot.Exsercise5.repository.MealRepo;
-import com.example.springboot.Exsercise5.entity.Meal;
+import com.example.springboot.Exercise5.repository.MealRepo;
+import com.example.springboot.Exercise5.entity.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

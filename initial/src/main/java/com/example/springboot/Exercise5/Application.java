@@ -1,8 +1,6 @@
-package com.example.springboot.Exsercise5;
+package com.example.springboot.Exercise5;
 
-import jakarta.persistence.Entity;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 

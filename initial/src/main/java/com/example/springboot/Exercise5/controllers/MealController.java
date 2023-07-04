@@ -1,7 +1,7 @@
-package com.example.springboot.Exsercise5.controllers;
+package com.example.springboot.Exercise5.controllers;
 
-import com.example.springboot.Exsercise5.entity.Meal;
-import com.example.springboot.Exsercise5.services.MealService;
+import com.example.springboot.Exercise5.entity.Meal;
+import com.example.springboot.Exercise5.services.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

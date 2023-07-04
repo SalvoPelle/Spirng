@@ -1,9 +1,10 @@
-package com.example.springboot.Exsercise5.services;
+package com.example.springboot.Exercise6.services;
 
-import com.example.springboot.Exsercise5.entity.Ingredient;
-import com.example.springboot.Exsercise5.repository.IngredientRepo;
+import com.example.springboot.Exercise6.entity.Ingredient;
+import com.example.springboot.Exercise6.repository.IngredientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Optional;

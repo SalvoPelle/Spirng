@@ -1,4 +1,4 @@
-package com.example.springboot.Exsercise5.entity;
+package com.example.springboot.Exercise5.entity;
 
 import jakarta.persistence.*;
 
